@@ -162,20 +162,20 @@ export class NgxMyDatePicker implements OnDestroy {
 
     onPrevYears(event: any, year: number): void {
         event.stopPropagation();
-        this.generateYears(year - 25);
+        this.generateYears(year - 14);
     }
 
     onNextYears(event: any, year: number): void {
         event.stopPropagation();
-        this.generateYears(year + 25);
+        this.generateYears(year + 14);
     }
 
     generateYears(year: number): void {
         this.years.length = 0;
         let today: IMyDate = this.getToday();
-        for (let i = year; i <= 20 + year; i += 5) {
+        for (let i = year; i <= 12 + year; i += 4) {
             let row: Array<IMyCalendarYear> = [];
-            for (let j = i; j < i + 5; j++) {
+            for (let j = i; j < i + 3; j++) {
                 let disabled: boolean = this.utilService.isMonthDisabledByDisableUntil({year: j, month: this.visibleMonth.monthNbr, day: this.daysInMonth(this.visibleMonth.monthNbr, j)}, this.opts.disableUntil)
                     || this.utilService.isMonthDisabledByDisableSince({year: j, month: this.visibleMonth.monthNbr, day: 1}, this.opts.disableSince);
                 let minMax: boolean = j < this.opts.minYear || j > this.opts.maxYear;
@@ -184,7 +184,7 @@ export class NgxMyDatePicker implements OnDestroy {
             this.years.push(row);
         }
         this.prevYearsDisabled = this.years[0][0].year <= this.opts.minYear || this.utilService.isMonthDisabledByDisableUntil({year: this.years[0][0].year - 1, month: this.visibleMonth.monthNbr, day: this.daysInMonth(this.visibleMonth.monthNbr, this.years[0][0].year - 1)}, this.opts.disableUntil);
-        this.nextYearsDisabled = this.years[4][4].year >= this.opts.maxYear || this.utilService.isMonthDisabledByDisableSince({year: this.years[4][4].year + 1, month: this.visibleMonth.monthNbr, day: 1}, this.opts.disableSince);
+        this.nextYearsDisabled = this.years[3][2].year >= this.opts.maxYear || this.utilService.isMonthDisabledByDisableSince({year: this.years[3][2].year + 1, month: this.visibleMonth.monthNbr, day: 1}, this.opts.disableSince);
     }
 
     onYearCellKeyDown(event: any, cell: IMyCalendarYear) {
