@@ -1,5 +1,10 @@
 <div class="ngxmdp">
-    <div class="selector" #selectorEl [ngxfocus]="1" [ngStyle]="{'width': opts.selectorWidth, 'height' : opts.selectorHeight, 'top': selectorPos.top, 'left': selectorPos.left}" [ngClass]="{'selectorarrow': opts.showSelectorArrow, 'selectorarrowleft': opts.showSelectorArrow&&!opts.alignSelectorRight, 'selectorarrowright': opts.showSelectorArrow&&opts.alignSelectorRight}" (keyup)="onCloseSelector($event)" tabindex="0">
+    <div class="selector" 
+        #selectorEl [ngxfocus]="1" 
+        [ngStyle]="{'width': opts.selectorWidth, 'top': selectorPos.top, 'left': selectorPos.left}" 
+        [ngClass]="{'selectorarrow': opts.showSelectorArrow, 'selectorarrowleft': opts.showSelectorArrow&&!opts.alignSelectorRight, 'selectorarrowright': opts.showSelectorArrow&&opts.alignSelectorRight}" 
+        (keyup)="onCloseSelector($event)" 
+        tabindex="0">
         <table class="header">
             <tr>
                 <td>
@@ -29,7 +34,7 @@
             </tr>
         </table>
         <table class="caltable" *ngIf="!selectMonth&&!selectYear">
-            <thead><tr><th class="weekdaytitle weekdaytitleweeknbr" *ngIf="opts.showWeekNumbers&&opts.firstDayOfWeek==='mo'">#</th><th class="weekdaytitle" scope="col" *ngFor="let d of weekDays">{{d}}</th></tr></thead>
+            <thead><tr><th class="weekdaytitle weekdaytitleweeknbr" *ngIf="opts.showWeekNumbers&&opts.firstDayOfWeek==='mo'"></th><th class="weekdaytitle" scope="col" *ngFor="let d of weekDays">{{d}}</th></tr></thead>
             <tbody>
                 <tr *ngFor="let w of dates">
                     <td class="daycell daycellweeknbr" *ngIf="opts.showWeekNumbers&&opts.firstDayOfWeek==='mo'">{{w.weekNbr}}</td>
@@ -72,3 +77,6 @@
         </table>
     </div>
 </div>
+
+
+
