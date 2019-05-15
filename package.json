@@ -1,6 +1,6 @@
 {
-  "name": "ngx-mydatepicker",
-  "version": "2.4.9",
+  "name": "@chizpa/ngx-mydatepicker",
+  "version": "2.4.17",
   "description": "Angular date picker",
   "keywords": [
     "Angular",
