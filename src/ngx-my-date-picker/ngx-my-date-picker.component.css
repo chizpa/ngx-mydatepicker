@@ -467,12 +467,17 @@
     background-color: #aaaaaa;
 }
 
-.ngxmdp .tablesingleday:hover,
 .ngxmdp .tablesinglemonth:hover,
 .ngxmdp .tablesingleyear:hover {
     background-color: #aaaaaa;
     border-radius: 5px;
     margin:15px;
+}
+
+.ngxmdp .tablesingleday:hover{
+    background-color: #aaaaaa;
+    border-radius: 5px;
+    border-radius: 50%;
 }
 
 .ngxmdp .monthlabel,
@@ -490,6 +495,23 @@
 .ngxmdp .yearlabel:hover {
     color: rgb(71, 71, 71);
 }
+
+/* Tweak */
+.ngxmdp .daycell_container
+{
+    width: 28px;
+    height: 28px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 4px;
+}
+/* .ngxmdp .daycell_content
+{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+} */
 
 /* @font-face {
     font-family: 'ngx-mydatepicker';
