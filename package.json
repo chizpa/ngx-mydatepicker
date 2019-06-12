@@ -1,6 +1,6 @@
 {
-  "name": "@chizpa/ngx-mydatepicker",
-  "version": "2.4.18",
+  "name": "@chizpa/ngx-mydatepicker-sd",
+  "version": "2.4.22",
   "description": "Angular date picker",
   "keywords": [
     "Angular",
@@ -11,7 +11,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kekeh/ngx-mydatepicker.git"
+    "url": "https://github.com/chizpa/ngx-mydatepicker"
   },
   "scripts": {
     "start": "webpack-dev-server --config config/webpack.dev.js --progress",

@@ -432,7 +432,7 @@
 .ngxmdp .daycell:focus,
 .ngxmdp .monthcell:focus,
 .ngxmdp .yearcell:focus {
-    outline: 1px solid #E9E9E9;
+    outline: 0px solid #E9E9E9;
 }
 
 .ngxmdp .icon-ngxmydpleft,
