@@ -153,6 +153,7 @@ export class NgxMyDatePicker implements OnDestroy {
     }
 
     onYearCellClicked(cell: IMyCalendarYear): void {
+        console.log(cell);
         let yc: boolean = cell.year !== this.visibleMonth.year;
         this.visibleMonth = {monthTxt: this.visibleMonth.monthTxt, monthNbr: this.visibleMonth.monthNbr, year: cell.year};
         this.generateCalendar(this.visibleMonth.monthNbr, cell.year, yc);
@@ -162,19 +163,24 @@ export class NgxMyDatePicker implements OnDestroy {
 
     onPrevYears(event: any, year: number): void {
         event.stopPropagation();
-        this.generateYears(year - 9);
+
+        this.generateYears(year + this.num_years_offset - this.num_of_year_rows);
     }
 
     onNextYears(event: any, year: number): void {
         event.stopPropagation();
-        this.generateYears(year + 9);
+        
+        this.generateYears(year + this.num_years_offset + this.num_of_year_rows);
     }
 
+    // How many columns and rows in the year selector
+    // offset -> where to place current year in the list
     num_of_year_columns:number = 3;
     num_of_year_rows:number = 3;
     num_years_offset:number = 4;
 
     generateYears(year: number): void {
+
         this.years.length = 0;
         let today: IMyDate = this.getToday();
         let year_counter:number = 0;
@@ -183,40 +189,21 @@ export class NgxMyDatePicker implements OnDestroy {
             let row: Array<IMyCalendarYear> = [];
 
             for (let j = 0; j < this.num_of_year_columns; j++) {
-            
-                // let disabled: boolean = this.utilService.isMonthDisabledByDisableUntil({year: j, month: this.visibleMonth.monthNbr, day: this.daysInMonth(this.visibleMonth.monthNbr, j)}, this.opts.disableUntil)
-                //     || this.utilService.isMonthDisabledByDisableSince({year: j, month: this.visibleMonth.monthNbr, day: 1}, this.opts.disableSince);
-                // let minMax: boolean = j < this.opts.minYear || j > this.opts.maxYear;
-                // year = year - this.num_years_offset;
-                
                 let year_sum = year - this.num_years_offset + year_counter;
-                row.push({year: year_sum, currYear: year_sum === today.year, selected: year + year === this.visibleMonth.year, disabled: false});
+
+                let disabled: boolean = this.utilService.isMonthDisabledByDisableUntil({year: year_sum, month: this.visibleMonth.monthNbr, day: this.daysInMonth(this.visibleMonth.monthNbr, year_sum)}, this.opts.disableUntil)
+                    || this.utilService.isMonthDisabledByDisableSince({year: year_sum, month: this.visibleMonth.monthNbr, day: 1}, this.opts.disableSince);
+                let minMax: boolean = year_sum < this.opts.minYear || year_sum > this.opts.maxYear;
+
+                row.push({year: year_sum, currYear: year_sum === today.year, selected: year_sum === this.visibleMonth.year, disabled: disabled || minMax});
                 year_counter++;
             }
             this.years.push(row);
         }
 
-
         this.prevYearsDisabled = this.years[0][0].year <= this.opts.minYear || this.utilService.isMonthDisabledByDisableUntil({year: this.years[0][0].year - 1, month: this.visibleMonth.monthNbr, day: this.daysInMonth(this.visibleMonth.monthNbr, this.years[0][0].year - 1)}, this.opts.disableUntil);
         this.nextYearsDisabled = this.years[this.num_of_year_rows - 1][this.num_of_year_columns - 1].year >= this.opts.maxYear || this.utilService.isMonthDisabledByDisableSince({year: this.years[this.num_of_year_rows - 1][this.num_of_year_columns - 1].year + 1, month: this.visibleMonth.monthNbr, day: 1}, this.opts.disableSince);
     }
-
-    // generateYears(year: number): void {
-    //     this.years.length = 0;
-    //     let today: IMyDate = this.getToday();
-    //     for (let i = (year - 5); i <= 12 + (year - 5); i += 4) {
-    //         let row: Array<IMyCalendarYear> = [];
-    //         for (let j = i; j < i + 3; j++) {
-    //             let disabled: boolean = this.utilService.isMonthDisabledByDisableUntil({year: j, month: this.visibleMonth.monthNbr, day: this.daysInMonth(this.visibleMonth.monthNbr, j)}, this.opts.disableUntil)
-    //                 || this.utilService.isMonthDisabledByDisableSince({year: j, month: this.visibleMonth.monthNbr, day: 1}, this.opts.disableSince);
-    //             let minMax: boolean = j < this.opts.minYear || j > this.opts.maxYear;
-    //             row.push({year: j, currYear: j === today.year, selected: j === this.visibleMonth.year, disabled: disabled || minMax});
-    //         }
-    //         this.years.push(row);
-    //     }
-    //     this.prevYearsDisabled = this.years[0][0].year <= this.opts.minYear || this.utilService.isMonthDisabledByDisableUntil({year: this.years[0][0].year - 1, month: this.visibleMonth.monthNbr, day: this.daysInMonth(this.visibleMonth.monthNbr, this.years[0][0].year - 1)}, this.opts.disableUntil);
-    //     this.nextYearsDisabled = this.years[3][2].year >= this.opts.maxYear || this.utilService.isMonthDisabledByDisableSince({year: this.years[3][2].year + 1, month: this.visibleMonth.monthNbr, day: 1}, this.opts.disableSince);
-    // }
 
     onYearCellKeyDown(event: any, cell: IMyCalendarYear) {
         if ((event.keyCode === KeyCode.enter || event.keyCode === KeyCode.space) && !cell.disabled) {

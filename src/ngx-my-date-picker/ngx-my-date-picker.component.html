@@ -39,9 +39,10 @@
                 <tr *ngFor="let w of dates">
                     <td class="daycell daycellweeknbr" *ngIf="opts.showWeekNumbers&&opts.firstDayOfWeek==='mo'">{{w.weekNbr}}</td>
                     <td class="daycell" 
-                    *ngFor="let d of w.week" 
-                    tabindex="0">
-                        <div class="daycell_container" [ngClass]="{'currmonth':d.cmo===currMonthId&&!d.disabled, 'selectedday':selectedDate.day===d.dateObj.day && selectedDate.month===d.dateObj.month && selectedDate.year===d.dateObj.year && d.cmo===currMonthId, 'disabled': d.disabled, 'tablesingleday':(!opts.allowSelectionOnlyInCurrentMonth||d.cmo===currMonthId&&opts.allowSelectionOnlyInCurrentMonth)&&!d.disabled}" 
+                        *ngFor="let d of w.week" 
+                        tabindex="0">
+                        <div class="daycell_container" 
+                        [ngClass]="{'currmonth':d.cmo===currMonthId&&!d.disabled, 'selectedday':selectedDate.day===d.dateObj.day && selectedDate.month===d.dateObj.month && selectedDate.year===d.dateObj.year && d.cmo===currMonthId, 'disabled': d.disabled, 'tablesingleday':(!opts.allowSelectionOnlyInCurrentMonth||d.cmo===currMonthId&&opts.allowSelectionOnlyInCurrentMonth)&&!d.disabled}" 
                         (click)="!d.disabled&&onCellClicked(d);$event.stopPropagation()" 
                         (keydown)="onCellKeyDown($event, d)" >
                             <div class="daycell_content">
@@ -67,8 +68,8 @@
         <table class="yeartable" *ngIf="selectYear">
             <tbody>
                 <tr>
-                    <td colspan="3" class="yearchangebtncell" (click)="$event.stopPropagation()">
-                        <button type="button" class="yearchangebtn ngxmdpicon icon-ngxmydpup" (click)="onPrevYears($event, years[0][0].year)" [disabled]="prevYearsDisabled" [ngClass]="{'yearchangebtnenabled': !prevYearsDisabled, 'yearchangebtndisabled': prevYearsDisabled}"></button>
+                    <td colspan="3" class="yearchangebtncell" (click)="onPrevYears($event, years[0][0].year)">
+                        <button type="button" class="yearchangebtn ngxmdpicon icon-ngxmydpup" [disabled]="prevYearsDisabled" [ngClass]="{'yearchangebtnenabled': !prevYearsDisabled, 'yearchangebtndisabled': prevYearsDisabled}"></button>
                     </td>
                 </tr>
                 <tr *ngFor="let yr of years">
@@ -77,8 +78,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="3" class="yearchangebtncell" (click)="$event.stopPropagation()">
-                        <button type="button" class="yearchangebtn ngxmdpicon icon-ngxmydpdown" (click)="onNextYears($event, years[0][0].year)" [disabled]="nextYearsDisabled" [ngClass]="{'yearchangebtnenabled': !nextYearsDisabled, 'yearchangebtndisabled': nextYearsDisabled}"></button>
+                    <td colspan="3" class="yearchangebtncell" (click)="onNextYears($event, years[0][0].year)">
+                        <button type="button" class="yearchangebtn ngxmdpicon icon-ngxmydpdown" [disabled]="nextYearsDisabled" [ngClass]="{'yearchangebtnenabled': !nextYearsDisabled, 'yearchangebtndisabled': nextYearsDisabled}"></button>
                     </td>
                 </tr>
             </tbody>
